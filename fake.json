@@ -1,0 +1,13 @@
+
+
+
+{
+  "dev": {
+    "host": "http://localhost:8080/api",
+    "token": "token"
+  },
+  "prod": {
+    "host": "https://cvmakerapiyoawq3gq-cvmaker-api.functions.fnc.fr-par.scw.cloud/api",
+    "token": "token"
+  }
+}

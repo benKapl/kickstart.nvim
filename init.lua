@@ -139,7 +139,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- Dislay documentation when cursor rest on a character
 vim.api.nvim_create_autocmd('CursorHold', {
   pattern = '*',
-  command = 'lua vim.lsp.buf.hover()',
+  command = "lua if vim.bo.filetype ~= 'http' then pcall(vim.lsp.buf.hover) end",
 })
 
 -- [[ Install `lazy.nvim` plugin manager ]]

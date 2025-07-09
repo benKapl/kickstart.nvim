@@ -1,5 +1,5 @@
 -- HTTP client in Neovim
--- https://github.com/rest-nvim/rest.nvim
+-- https://github.com/mistweaverco/kulala.nvim
 return {
   'mistweaverco/kulala.nvim',
   keys = {
@@ -9,7 +9,7 @@ return {
   },
   ft = { 'http', 'rest' },
   opts = {
-    global_keymaps = false,
+    global_keymaps = true,
     global_keymaps_prefix = '<leader>R',
     kulala_keymaps_prefix = '',
   },
