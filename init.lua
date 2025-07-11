@@ -136,12 +136,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Dislay documentation when cursor rest on a character
-vim.api.nvim_create_autocmd('CursorHold', {
-  pattern = '*',
-  command = "lua if vim.bo.filetype ~= 'http' then pcall(vim.lsp.buf.hover) end",
-})
-
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -212,17 +206,17 @@ require('lazy').setup({
     },
   },
 
-  -- { -- Automatically shows a signature hint when typing arguments to a function
-  --   'ray-x/lsp_signature.nvim',
-  --   config = function()
-  --     require('lsp_signature').setup {
-  --       bind = true, -- This is the default
-  --       handler_opts = {
-  --         border = 'rounded',
-  --       },
-  --     }
-  --   end,
-  -- },
+  { -- Automatically shows a signature hint when typing arguments to a function
+    'ray-x/lsp_signature.nvim',
+    config = function()
+      require('lsp_signature').setup {
+        bind = true, -- This is the default
+        handler_opts = {
+          border = 'rounded',
+        },
+      }
+    end,
+  },
 
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -789,7 +783,7 @@ require('lazy').setup({
         -- <c-k>: Toggle signature help
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
-        preset = 'default',
+        preset = 'enter',
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
@@ -931,7 +925,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
