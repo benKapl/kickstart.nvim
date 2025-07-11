@@ -12,6 +12,7 @@ return {
       -- Use `-` to open oil in the current window
       keymaps = {
         ['<leader>-'] = 'actions.open_cwd',
+        ['g.'] = { 'actions.toggle_hidden', mode = 'n' },
       },
     }
 
