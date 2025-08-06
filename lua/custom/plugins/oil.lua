@@ -9,14 +9,19 @@ return {
     require('oil').setup {
       -- To see all options, run `:help oil-options`
       default_file_explorer = true,
-      -- Use `-` to open oil in the current window
+      -- When navigating directories, update the CWD automatically
+      callbacks = {
+        ['Enter'] = function(entry)
+          vim.fn.chdir(entry.path)
+        end,
+      }, -- Use `-` to open oil in the current window
       keymaps = {
         ['<leader>-'] = 'actions.open_cwd',
         ['g.'] = { 'actions.toggle_hidden', mode = 'n' },
       },
     }
 
-    -- Open parent directory in oil
-    vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
+    -- Open current directory in oil
+    vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open current directory' })
   end,
 }
