@@ -141,6 +141,40 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Update a global Tmux variable (@neovim_cwd) whenever the current file changes in Neovim.
+local tmux_sync_group = vim.api.nvim_create_augroup('TmuxCwdSync', { clear = true })
+
+vim.api.nvim_create_autocmd('BufEnter', {
+  group = tmux_sync_group,
+  pattern = '*',
+  callback = function()
+    -- Check if inside a tmux session
+    if not vim.env.TMUX then
+      return
+    end
+
+    local bufp = vim.fn.expand('%:p')
+    if bufp == '' then
+      return
+    end
+
+    local cwd
+    -- Handle oil.nvim buffers, which have a URI like oil:///path/to/dir
+    if string.find(bufp, "oil://") == 1 then
+      cwd = string.gsub(bufp, "oil://", "")
+      -- Remove trailing slash if it exists to ensure it's a valid directory
+      cwd = string.gsub(cwd, "/$", "")
+    else
+      -- Handle regular file buffers
+      cwd = vim.fn.expand('%:p:h')
+    end
+
+    if cwd and cwd ~= '' then
+      vim.fn.system({ 'tmux', 'set-option', '-g', '@neovim_cwd', cwd })
+    end
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -193,26 +227,6 @@ require('lazy').setup({
   -- options to `gitsigns.nvim`.
   --
   -- See `:help gitsigns` to understand what the configuration keys do
-
-  -- vim-tmux-navigator plugin, needs to be checked after TJ videos !
-  {
-    'christoomey/vim-tmux-navigator',
-    cmd = {
-      'TmuxNavigateLeft',
-      'TmuxNavigateDown',
-      'TmuxNavigateUp',
-      'TmuxNavigateRight',
-      'TmuxNavigatePrevious',
-      'TmuxNavigatorProcessList',
-    },
-    keys = {
-      { '<c-h>', '<cmd><C-U>TmuxNavigateLeft<cr>' },
-      { '<c-j>', '<cmd><C-U>TmuxNavigateDown<cr>' },
-      { '<c-k>', '<cmd><C-U>TmuxNavigateUp<cr>' },
-      { '<c-l>', '<cmd><C-U>TmuxNavigateRight<cr>' },
-      { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
-    },
-  },
 
   { -- Automatically shows a signature hint when typing arguments to a function
     'ray-x/lsp_signature.nvim',
