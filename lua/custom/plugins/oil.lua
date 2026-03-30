@@ -19,6 +19,11 @@ return {
         ['<leader>-'] = 'actions.open_cwd',
         ['g.'] = { 'actions.toggle_hidden', mode = 'n' },
       },
+      view_options = {
+        -- Show files and directories that start with "."
+        show_hidden = true
+
+      },
     }
 
     -- Open current directory in oil

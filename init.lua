@@ -20,6 +20,12 @@ vim.g.have_nerd_font = true
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
+-- Set default indentation to 2 spaces
+vim.o.expandtab = true
+vim.o.tabstop = 2
+vim.o.softtabstop = 2
+vim.o.shiftwidth = 2
+
 -- Make line numbers default
 vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.
@@ -39,6 +45,22 @@ vim.o.showmode = false
 vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
 end)
+
+-- Bridge Copy/Pasting from and to Windows
+if vim.fn.has 'wsl' == 1 then
+  vim.g.clipboard = {
+    name = 'WslClipboard',
+    copy = {
+      ['+'] = 'clip.exe',
+      ['*'] = 'clip.exe',
+    },
+    paste = {
+      ['+'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+      ['*'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+    },
+    cache_enabled = 0,
+  }
+end
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -153,24 +175,24 @@ vim.api.nvim_create_autocmd('BufEnter', {
       return
     end
 
-    local bufp = vim.fn.expand('%:p')
+    local bufp = vim.fn.expand '%:p'
     if bufp == '' then
       return
     end
 
     local cwd
     -- Handle oil.nvim buffers, which have a URI like oil:///path/to/dir
-    if string.find(bufp, "oil://") == 1 then
-      cwd = string.gsub(bufp, "oil://", "")
+    if string.find(bufp, 'oil://') == 1 then
+      cwd = string.gsub(bufp, 'oil://', '')
       -- Remove trailing slash if it exists to ensure it's a valid directory
-      cwd = string.gsub(cwd, "/$", "")
+      cwd = string.gsub(cwd, '/$', '')
     else
       -- Handle regular file buffers
-      cwd = vim.fn.expand('%:p:h')
+      cwd = vim.fn.expand '%:p:h'
     end
 
     if cwd and cwd ~= '' then
-      vim.fn.system({ 'tmux', 'set-option', '-g', '@neovim_cwd', cwd })
+      vim.fn.system { 'tmux', 'set-option', '-g', '@neovim_cwd', cwd }
     end
   end,
 })
@@ -641,7 +663,7 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        gopls = {},
+        -- gopls = {},
         eslint = {},
         ts_ls = {},
         -- pyright = {},
