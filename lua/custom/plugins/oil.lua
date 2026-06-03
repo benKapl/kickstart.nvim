@@ -9,12 +9,7 @@ return {
     require('oil').setup {
       -- To see all options, run `:help oil-options`
       default_file_explorer = true,
-      -- When navigating directories, update the CWD automatically
-      callbacks = {
-        ['Enter'] = function(entry)
-          vim.fn.chdir(entry.path)
-        end,
-      }, -- Use `-` to open oil in the current window
+      -- Use `-` to open oil in the current window
       keymaps = {
         ['<leader>-'] = 'actions.open_cwd',
         ['g.'] = { 'actions.toggle_hidden', mode = 'n' },
