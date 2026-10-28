@@ -25,7 +25,6 @@ return {
         { '<leader>g', group = 'Git' },
         { '<leader>t', group = 'Toggle' },
         { '<leader>h', group = 'Hunk git', mode = { 'n', 'v' } },
-        { '<leader>T', group = 'Telescope (legacy)' },
         { '<leader>R', group = 'Requêtes HTTP (kulala)' },
       },
     },

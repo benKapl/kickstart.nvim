@@ -43,8 +43,7 @@ lua/plugins/             un fichier par domaine (chaque fichier commence par son
   format.lua             conform
   treesitter.lua
   git.lua                gitsigns
-  oil.lua                fichiers éditables comme du texte
-  legacy.lua             plugins remplacés, gardés jusqu'à validation
+  oil.lua                désactivé (enabled = false), remplacé par l'explorer
   lang/                  plugins propres à un langage (go, http)
 lsp/                     réglages par serveur LSP, fusionnés avec ceux de nvim-lspconfig
 bin/e                    ouvre des fichiers dans le nvim de la session tuios

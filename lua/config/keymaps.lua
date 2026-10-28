@@ -13,7 +13,6 @@ map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Diagnostics dans la l
 map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Quitter le mode terminal' })
 
 -- Navigation entre fenêtres nvim. Les panes tuios se pilotent à part (alt+flèches, ctrl+space h/j/k/l).
--- Tant que vim-tmux-navigator est installé (lua/plugins/legacy.lua), il remplace ces mappings.
 map('n', '<C-h>', '<C-w><C-h>', { desc = 'Fenêtre de gauche' })
 map('n', '<C-l>', '<C-w><C-l>', { desc = 'Fenêtre de droite' })
 map('n', '<C-j>', '<C-w><C-j>', { desc = 'Fenêtre du dessous' })

@@ -2,7 +2,14 @@
 -- Doc : https://github.com/folke/snacks.nvim (`:help snacks-picker`, `:help snacks-explorer`)
 --
 -- Dans un picker : <C-j>/<C-k> naviguer, <Tab> sélectionner plusieurs, <C-q> envoyer à la quickfix,
--- <A-h> fichiers cachés, <A-i> fichiers ignorés, <Esc> fermer. Liste complète : `?` dans le picker.
+-- <C-s> split vertical, <C-h> split horizontal, <A-h> fichiers cachés, <A-i> fichiers ignorés, <Esc> fermer.
+-- Liste complète : `?` dans le picker.
+
+-- Touches de split, dans le champ de saisie (insert + normal) et dans la liste
+local split_keys = {
+  ['<c-s>'] = { 'edit_vsplit', mode = { 'i', 'n' } },
+  ['<c-h>'] = { 'edit_split', mode = { 'i', 'n' } },
+}
 
 return {
   'folke/snacks.nvim',
@@ -10,8 +17,14 @@ return {
   lazy = false,
   ---@type snacks.Config
   opts = {
-    picker = { ui_select = true }, -- remplace aussi vim.ui.select (code actions, etc.)
-    explorer = { replace_netrw = false }, -- oil reste l'explorateur des dossiers (`nvim .`, `-`)
+    picker = {
+      ui_select = true, -- remplace aussi vim.ui.select (code actions, etc.)
+      win = {
+        input = { keys = split_keys },
+        list = { keys = split_keys },
+      },
+    },
+    explorer = { replace_netrw = true }, -- `nvim .` et `:e dossier/` ouvrent l'explorer
     lazygit = {},
   },
   keys = {

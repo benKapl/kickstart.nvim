@@ -10,7 +10,6 @@ Leader = `Espace`. Aide-mémoire en direct : appuyer sur `Espace` et attendre (w
 - [Rechercher / remplacer dans le projet](#rechercher--remplacer-dans-le-projet-grug-far)
 - [La quickfix](#la-quickfix)
 - [Arbre de fichiers](#arbre-de-fichiers-explorer)
-- [Gérer les fichiers comme du texte](#gérer-les-fichiers-comme-du-texte-oil)
 - [LSP](#lsp-navigation-diagnostics-renommage)
 - [Complétion](#complétion)
 - [Formatage](#formatage)
@@ -19,7 +18,6 @@ Leader = `Espace`. Aide-mémoire en direct : appuyer sur `Espace` et attendre (w
 - [Ouvrir un fichier depuis un autre pane](#ouvrir-un-fichier-depuis-un-autre-pane-e)
 - [Édition de texte](#édition-de-texte)
 - [Requêtes HTTP](#requêtes-http-kulala)
-- [Plugins legacy](#plugins-legacy-en-cours-de-validation)
 
 ---
 
@@ -89,11 +87,13 @@ On la remplit depuis un picker (`<C-q>`), depuis grug-far, ou via `:make`, `:gre
 ## Arbre de fichiers (explorer)
 
 `<leader>e` ouvre ou ferme l'explorer de snacks dans une barre à gauche. Il suit le fichier courant.
+`nvim .` (ou `nvim dossier/`, `:e dossier/`) ouvre l'explorer sur ce dossier.
 
 | Touche (dans l'explorer) | Action |
 |---|---|
 | `<CR>` / `l` | Ouvrir le fichier, déplier le dossier |
 | `h` | Replier |
+| `<C-v>` / `<C-s>` | Ouvrir dans un split vertical / horizontal |
 | `a` | Créer (finir par `/` pour un dossier) |
 | `r` | Renommer |
 | `d` | Supprimer |
@@ -101,13 +101,6 @@ On la remplit depuis un picker (`<C-q>`), depuis grug-far, ou via `:make`, `:gre
 | `H` / `I` | Fichiers cachés / ignorés |
 | `/` | Filtrer |
 | `?` | Toutes les touches |
-
-## Gérer les fichiers comme du texte (oil)
-
-`lua/plugins/oil.lua`. `-` ouvre le dossier du fichier courant **comme un buffer** : renommer = éditer le nom,
-déplacer = couper la ligne (`dd`) et la coller (`p`) dans un autre dossier ouvert dans oil, supprimer = `dd`.
-Rien n'est appliqué avant `:w`, qui demande confirmation. `-` remonte d'un dossier, `<leader>-` ouvre la racine
-du projet, `g.` affiche les fichiers cachés, `g?` l'aide. `nvim .` ouvre aussi oil.
 
 ## LSP (navigation, diagnostics, renommage)
 
@@ -167,6 +160,11 @@ Deux couches séparées, sans plugin de liaison :
 | Couper | `:vsplit` / `:split` (`<C-w>v` / `<C-w>s`) | raccourcis tuios |
 | Fermer | `<C-w>q` | raccourcis tuios |
 
+Nouveau split :
+- même fichier : `<C-w>v` / `<C-w>s` (`:vs` / `:sp`) ;
+- vide, pour y ouvrir ensuite un fichier avec `<leader><leader>` : `:vnew` / `<C-w>n` (`:new`) ;
+- directement sur un autre fichier : `<C-v>` / `<C-s>` dans un picker ou l'explorer.
+
 Autres commandes de fenêtres utiles : `<C-w>o` garder seulement la fenêtre courante, `<C-w>=` égaliser les tailles,
 `<C-w>H/J/K/L` déplacer la fenêtre vers un bord, `:help window-moving`.
 
@@ -193,8 +191,3 @@ Script : `bin/e` (à mettre dans le PATH, voir README).
 ## Requêtes HTTP (kulala)
 
 Dans un fichier `.http` : `<leader>Rs` envoie la requête sous le curseur, `<leader>Ra` toutes, `<leader>Rb` ouvre un brouillon.
-
-## Plugins legacy (en cours de validation)
-
-`lua/plugins/legacy.lua` : Telescope (sous `<leader>T…` : `Tf` fichiers, `Tg` grep, `Tb` buffers, `Tr` reprendre…)
-et vim-tmux-navigator. À supprimer après validation des remplaçants.
