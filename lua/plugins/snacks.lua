@@ -23,6 +23,25 @@ return {
         input = { keys = split_keys },
         list = { keys = split_keys },
       },
+      sources = {
+        explorer = {
+          actions = {
+            -- `y` copie le chemin absolu (défaut snacks) ; `Y` copie le chemin relatif à la racine
+            -- de l'explorer (le dossier affiché en haut)
+            yank_relative = function(picker)
+              local root = picker:cwd()
+              local paths = vim.tbl_map(function(item)
+                local path = Snacks.picker.util.path(item)
+                return vim.fs.relpath(root, path) or path
+              end, picker:selected { fallback = true })
+              picker.list:set_selected() -- vide la sélection
+              vim.fn.setreg('+', table.concat(paths, '\n'))
+              vim.notify('Copié : ' .. table.concat(paths, ', '))
+            end,
+          },
+          win = { list = { keys = { ['Y'] = 'yank_relative' } } },
+        },
+      },
     },
     explorer = { replace_netrw = true }, -- `nvim .` et `:e dossier/` ouvrent l'explorer
     lazygit = {},

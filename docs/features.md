@@ -200,6 +200,9 @@ render-markdown.nvim (`lua/plugins/lang/markdown.lua`) met en forme les fichiers
 titres, tableaux, listes, cases à cocher, blocs de code. Sur la ligne du curseur, le texte brut réapparaît pour l'édition.
 `<leader>tm` active / désactive le rendu. Les blocs Mermaid restent affichés en source.
 
+`<leader>tM` ouvre à côté un pane tuios qui dessine les diagrammes Mermaid du fichier (`tuios mermaid --watch`),
+en caractères de boîte, et les redessine à chaque `:w`. Le focus reste dans nvim ; `q` dans le pane le ferme.
+
 ## Thème
 
 Ayu Dark (neovim-ayu, `lua/plugins/ui.lua`), le thème utilisé dans Zed. `<leader>sC` liste les thèmes installés
