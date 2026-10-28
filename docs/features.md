@@ -18,6 +18,7 @@ Leader = `Espace`. Aide-mémoire en direct : appuyer sur `Espace` et attendre (w
 - [Ouvrir un fichier depuis un autre pane](#ouvrir-un-fichier-depuis-un-autre-pane-e)
 - [Édition de texte](#édition-de-texte)
 - [Requêtes HTTP](#requêtes-http-kulala)
+- [Aperçu Markdown](#aperçu-markdown)
 - [Thème](#thème)
 
 ---
@@ -138,7 +139,7 @@ blink.cmp (`lua/plugins/completion.lua`) : suggestions LSP, chemins, snippets (f
 ## Formatage
 
 conform.nvim (`lua/plugins/format.lua`) formate à l'enregistrement. `<leader>f` formate à la demande.
-prettierd pour JS/TS/JSON/CSS/HTML, stylua pour Lua, goimports pour Go ; sinon le formateur du serveur LSP.
+prettierd pour JS/TS/JSON/CSS/HTML/Markdown/YAML, stylua pour Lua, goimports pour Go ; sinon le formateur du serveur LSP.
 `:ConformInfo` montre ce qui s'applique au buffer.
 
 ## Git
@@ -192,6 +193,12 @@ Script : `bin/e` (à mettre dans le PATH, voir README).
 ## Requêtes HTTP (kulala)
 
 Dans un fichier `.http` : `<leader>Rs` envoie la requête sous le curseur, `<leader>Ra` toutes, `<leader>Rb` ouvre un brouillon.
+
+## Aperçu Markdown
+
+render-markdown.nvim (`lua/plugins/lang/markdown.lua`) met en forme les fichiers `.md` directement dans le buffer :
+titres, tableaux, listes, cases à cocher, blocs de code. Sur la ligne du curseur, le texte brut réapparaît pour l'édition.
+`<leader>tm` active / désactive le rendu. Les blocs Mermaid restent affichés en source.
 
 ## Thème
 
