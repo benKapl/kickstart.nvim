@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# e FICHIER... : ouvre les fichiers dans le nvim de la session tuios courante et donne le focus
+# à son pane. Sans nvim dans la session (ou hors tuios), lance un nvim normal.
+# Le socket est créé par lua/config/autocmds.lua.
+
+sock="${XDG_RUNTIME_DIR:-/tmp}/nvim-${TUIOS_SESSION}.sock"
+
+if [ $# -gt 0 ] && [ -n "$TUIOS_SESSION" ] && [ -S "$sock" ] &&
+  pane=$(nvim --server "$sock" --remote-expr '$TUIOS_PANE_ID' 2>/dev/null); then
+  files=()
+  for f in "$@"; do files+=("$(realpath -m -- "$f")"); done # le nvim distant a un autre cwd
+  nvim --server "$sock" --remote "${files[@]}"
+  [ -n "$pane" ] && tuios focus-window "$pane" >/dev/null 2>&1
+  exit 0
+fi
+
+exec nvim "$@"
