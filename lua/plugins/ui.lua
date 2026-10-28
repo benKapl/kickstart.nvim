@@ -1,16 +1,28 @@
 -- Apparence et aides visuelles : thème, aide-mémoire des touches, commentaires TODO.
 
 return {
-  { -- Thème. Changer de thème : `<leader>sC` (picker des colorschemes) puis l'ajouter ici.
-    -- https://github.com/folke/tokyonight.nvim
-    'folke/tokyonight.nvim',
+  { -- Thème : Ayu Dark, comme dans Zed. Essayer un autre thème : `<leader>sC`.
+    -- https://github.com/Shatur/neovim-ayu
+    'Shatur/neovim-ayu',
     priority = 1000, -- chargé avant les autres plugins
     config = function()
-      require('tokyonight').setup {
-        styles = { comments = { italic = false } },
-      }
-      vim.cmd.colorscheme 'tokyonight-night'
+      require('ayu').setup { mirage = false }
+      vim.cmd.colorscheme 'ayu-dark'
     end,
+  },
+
+  { -- Icônes de fichiers (picker, explorer, statusline). Nécessite une Nerd Font.
+    -- https://github.com/nvim-tree/nvim-web-devicons
+    'nvim-tree/nvim-web-devicons',
+    lazy = true,
+    enabled = vim.g.have_nerd_font,
+  },
+
+  { -- Ancien thème, gardé installé pour comparer (`:colorscheme tokyonight-night`)
+    -- https://github.com/folke/tokyonight.nvim
+    'folke/tokyonight.nvim',
+    lazy = true,
+    opts = { styles = { comments = { italic = false } } },
   },
 
   { -- Affiche les suites possibles d'un raccourci en cours de frappe (appuyer sur <leader> et attendre)

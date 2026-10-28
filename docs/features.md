@@ -18,6 +18,7 @@ Leader = `Espace`. Aide-mémoire en direct : appuyer sur `Espace` et attendre (w
 - [Ouvrir un fichier depuis un autre pane](#ouvrir-un-fichier-depuis-un-autre-pane-e)
 - [Édition de texte](#édition-de-texte)
 - [Requêtes HTTP](#requêtes-http-kulala)
+- [Thème](#thème)
 
 ---
 
@@ -33,7 +34,7 @@ Picker de snacks.nvim (`lua/plugins/snacks.lua`). Recherche floue : taper quelqu
 | `<leader>,` | Buffers ouverts |
 | `<leader>sn` | Fichiers de la config nvim |
 
-Dans le picker : `<C-j>`/`<C-k>` naviguer, `<CR>` ouvrir, `<C-v>` / `<C-s>` ouvrir en split vertical / horizontal,
+Dans le picker : `<C-j>`/`<C-k>` naviguer, `<CR>` ouvrir, `<C-s>` / `<C-h>` ouvrir en split vertical / horizontal,
 `<Tab>` sélectionner plusieurs éléments, `<A-h>` fichiers cachés, `<A-i>` fichiers ignorés par git, `?` toutes les touches.
 
 ## Chercher dans le projet (l'équivalent de Ctrl+Shift+F)
@@ -93,7 +94,7 @@ On la remplit depuis un picker (`<C-q>`), depuis grug-far, ou via `:make`, `:gre
 |---|---|
 | `<CR>` / `l` | Ouvrir le fichier, déplier le dossier |
 | `h` | Replier |
-| `<C-v>` / `<C-s>` | Ouvrir dans un split vertical / horizontal |
+| `<C-s>` / `<C-h>` | Ouvrir dans un split vertical / horizontal |
 | `a` | Créer (finir par `/` pour un dossier) |
 | `r` | Renommer |
 | `d` | Supprimer |
@@ -163,7 +164,7 @@ Deux couches séparées, sans plugin de liaison :
 Nouveau split :
 - même fichier : `<C-w>v` / `<C-w>s` (`:vs` / `:sp`) ;
 - vide, pour y ouvrir ensuite un fichier avec `<leader><leader>` : `:vnew` / `<C-w>n` (`:new`) ;
-- directement sur un autre fichier : `<C-v>` / `<C-s>` dans un picker ou l'explorer.
+- directement sur un autre fichier : `<C-s>` / `<C-h>` dans un picker ou l'explorer.
 
 Autres commandes de fenêtres utiles : `<C-w>o` garder seulement la fenêtre courante, `<C-w>=` égaliser les tailles,
 `<C-w>H/J/K/L` déplacer la fenêtre vers un bord, `:help window-moving`.
@@ -191,3 +192,8 @@ Script : `bin/e` (à mettre dans le PATH, voir README).
 ## Requêtes HTTP (kulala)
 
 Dans un fichier `.http` : `<leader>Rs` envoie la requête sous le curseur, `<leader>Ra` toutes, `<leader>Rb` ouvre un brouillon.
+
+## Thème
+
+Ayu Dark (neovim-ayu, `lua/plugins/ui.lua`), le thème utilisé dans Zed. `<leader>sC` liste les thèmes installés
+avec aperçu ; tokyonight reste installé (`:colorscheme tokyonight-night`).
