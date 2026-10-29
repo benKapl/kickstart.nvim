@@ -17,3 +17,6 @@ map('n', '<C-h>', '<C-w><C-h>', { desc = 'Fenêtre de gauche' })
 map('n', '<C-l>', '<C-w><C-l>', { desc = 'Fenêtre de droite' })
 map('n', '<C-j>', '<C-w><C-j>', { desc = 'Fenêtre du dessous' })
 map('n', '<C-k>', '<C-w><C-k>', { desc = 'Fenêtre du dessus' })
+
+-- Navigation vers le fichier précédent
+map('n', '<leader>bb', '<cmd>e #<CR>', { desc = 'Fichier précédent (alternate)' })
