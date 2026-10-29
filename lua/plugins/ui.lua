@@ -6,7 +6,12 @@ return {
     'Shatur/neovim-ayu',
     priority = 1000, -- chargé avant les autres plugins
     config = function()
-      require('ayu').setup { mirage = false }
+      require('ayu').setup {
+        mirage = false,
+        overrides = {
+          LineNr = { fg = '#A0A6AE' }, -- numéros de ligne plus lisibles (défaut Ayu trop sombre)
+        },
+      }
       vim.cmd.colorscheme 'ayu-dark'
     end,
   },
