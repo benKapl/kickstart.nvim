@@ -25,19 +25,19 @@ vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
 end)
 
--- WSL : passe par le presse-papiers Windows
-if vim.fn.has 'wsl' == 1 then
+-- WSL : win32yank plutôt que clip.exe/powershell (lent, et clip.exe casse l'UTF-8)
+if vim.fn.has 'wsl' == 1 and vim.fn.executable 'win32yank.exe' == 1 then
   vim.g.clipboard = {
-    name = 'WslClipboard',
+    name = 'win32yank',
     copy = {
-      ['+'] = 'clip.exe',
-      ['*'] = 'clip.exe',
+      ['+'] = { 'win32yank.exe', '-i', '--crlf' },
+      ['*'] = { 'win32yank.exe', '-i', '--crlf' },
     },
     paste = {
-      ['+'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-      ['*'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+      ['+'] = { 'win32yank.exe', '-o', '--lf' },
+      ['*'] = { 'win32yank.exe', '-o', '--lf' },
     },
-    cache_enabled = 0,
+    cache_enabled = 1,
   }
 end
 

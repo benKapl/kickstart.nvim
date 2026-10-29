@@ -19,7 +19,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     vim.api.nvim_set_hl(0, 'NormalNC', { bg = '#0F131A' }) -- panes inactifs un peu plus clairs (panel_bg Ayu)
     -- Ligne du fichier courant dans l'explorer (son curseur suit le pane actif)
     vim.api.nvim_set_hl(0, 'SnacksPickerListCursorLine', { bg = '#9E2B33', bold = true }) -- rouge franc
-    vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#9E2B33' }) --rouge franc
+    -- vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#9E2B33' }) --rouge franc
   end,
 })
 
