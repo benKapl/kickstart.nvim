@@ -20,3 +20,8 @@ map('n', '<C-k>', '<C-w><C-k>', { desc = 'Fenêtre du dessus' })
 
 -- Navigation vers le fichier précédent
 map('n', '<leader>bb', '<cmd>e #<CR>', { desc = 'Fichier précédent (alternate)' })
+
+-- Onglets (tabs). Passer de l'un à l'autre : gt / gT, ou 3gt pour le 3ᵉ.
+map('n', '<leader><Tab>n', '<cmd>tabnew<CR>', { desc = 'Nouvel onglet' })
+map('n', '<leader><Tab>s', '<cmd>tab split<CR>', { desc = 'Buffer courant dans un nouvel onglet' })
+map('n', '<leader><Tab>c', '<cmd>tabclose<CR>', { desc = "Fermer l'onglet" })

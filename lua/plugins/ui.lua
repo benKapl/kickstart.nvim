@@ -53,6 +53,7 @@ return {
         { '<leader>s', group = 'Recherche' },
         { '<leader>g', group = 'Git' },
         { '<leader>t', group = 'Toggle' },
+        { '<leader><Tab>', group = 'Tabs' },
         { '<leader>h', group = 'Hunk git', mode = { 'n', 'v' } },
         { '<leader>R', group = 'Requêtes HTTP (kulala)' },
       },
