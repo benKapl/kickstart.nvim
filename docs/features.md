@@ -207,3 +207,7 @@ en caractères de boîte, et les redessine à chaque `:w`. Le focus reste dans n
 
 Ayu Dark (neovim-ayu, `lua/plugins/ui.lua`), le thème utilisé dans Zed. `<leader>sC` liste les thèmes installés
 avec aperçu ; tokyonight reste installé (`:colorscheme tokyonight-night`).
+
+Pane actif : bordure orange fine (colorful-winsep, `:Winsep toggle`), fond légèrement plus sombre que les panes
+inactifs, ligne du curseur visible seulement dans ce pane. Dans l'explorer, la ligne du fichier ouvert dans le
+pane actif est surlignée en rouge (`lua/config/autocmds.lua`).

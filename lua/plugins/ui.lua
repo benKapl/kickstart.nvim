@@ -11,6 +11,18 @@ return {
     end,
   },
 
+  { -- Bordure colorée autour du pane actif (les autres séparateurs restent discrets)
+    -- https://github.com/nvim-zh/colorful-winsep.nvim (`:Winsep toggle`)
+    'nvim-zh/colorful-winsep.nvim',
+    event = 'WinLeave', -- inutile tant qu'il n'y a qu'un pane
+    opts = {
+      border = 'single', -- trait fin (bold : trait épais)
+      highlight = '#E6B450', -- accent Ayu
+      animate = { enabled = false },
+      excluded_ft = { 'snacks_picker_list', 'snacks_picker_input', 'snacks_layout_box' },
+    },
+  },
+
   { -- Icônes de fichiers (picker, explorer, statusline). Nécessite une Nerd Font.
     -- https://github.com/nvim-tree/nvim-web-devicons
     'nvim-tree/nvim-web-devicons',
