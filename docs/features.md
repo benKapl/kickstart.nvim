@@ -18,6 +18,7 @@ Leader = `Espace`. Aide-mémoire en direct : appuyer sur `Espace` et attendre (w
 - [Ouvrir un fichier depuis un autre pane](#ouvrir-un-fichier-depuis-un-autre-pane-e)
 - [Édition de texte](#édition-de-texte)
 - [Requêtes HTTP](#requêtes-http-kulala)
+- [Bases de données](#bases-de-données-dadbod)
 - [Aperçu Markdown](#aperçu-markdown)
 - [Thème](#thème)
 
@@ -193,6 +194,32 @@ Script : `bin/e` (à mettre dans le PATH, voir README).
 ## Requêtes HTTP (kulala)
 
 Dans un fichier `.http` : `<leader>Rs` envoie la requête sous le curseur, `<leader>Ra` toutes, `<leader>Rb` ouvre un brouillon.
+
+## Bases de données (dadbod)
+
+vim-dadbod + vim-dadbod-ui (`lua/plugins/db.lua`), chargés au premier raccourci `<leader>d` ou à la première commande `:DBUI*`.
+
+| Touche | Action |
+|---|---|
+| `<leader>du` | Ouvrir / fermer le panneau des connexions |
+| `<leader>da` | Ajouter une connexion : URL, puis un nom |
+| `<leader>de` (buffer SQL) | Exécuter tout le buffer ; en visuel, seulement la sélection |
+| `<leader>ds` (buffer SQL) | Sauvegarder la requête (elle apparaît dans *Saved queries* du panneau) |
+
+Dans le panneau : `<CR>` / `o` déplie une connexion ou une table, ouvre une requête ; `S` ouvre en split vertical,
+`d` supprime, `r` renomme, `R` rafraîchit, `q` ferme, `?` toutes les touches.
+Dans les résultats : `vic` copie la cellule, `yh` les en-têtes, `<C-]>` suit une clé étrangère, `<leader>R` bascule
+la vue tableau / une ligne par colonne.
+Plus rares, par commande : `:DBUIFindBuffer` (rattacher un `.sql` à une connexion), `:DBUIRenameBuffer`,
+`:DBUILastQueryInfo` (durée de la dernière requête).
+
+URL au format dadbod, pas JDBC : `mysql://user:pass@127.0.0.1:4321/base`, `postgres://…`, `sqlite:chemin.db`.
+Mettre `127.0.0.1` plutôt que `localhost` : avec `localhost`, le client `mysql` passe par le socket Unix et ignore
+le port. Les adaptateurs appellent les clients en ligne de commande (`mysql`, `psql`, `sqlite3`…), qui doivent être installés.
+
+Les connexions ajoutées sont enregistrées dans `~/.local/share/db_ui/connections.json` (hors dépôt, mots de passe
+compris). Une URL invalide dans ce fichier fait échouer `:DBUI` entier (ex. `DB: no adapter for jdbc`) : la corriger
+ou la supprimer directement dans le fichier.
 
 ## Aperçu Markdown
 

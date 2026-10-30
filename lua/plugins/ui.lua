@@ -56,6 +56,7 @@ return {
         { '<leader><Tab>', group = 'Tabs' },
         { '<leader>h', group = 'Hunk git', mode = { 'n', 'v' } },
         { '<leader>R', group = 'Requêtes HTTP (kulala)' },
+        { '<leader>d', group = 'Base de données', mode = { 'n', 'x' } },
       },
     },
   },
