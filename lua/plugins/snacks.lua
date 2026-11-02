@@ -27,7 +27,7 @@ return {
         input = { keys = split_keys },
         list = { keys = split_keys },
       },
-      Lazy = {
+      sources = {
         explorer = {
           actions = {
             -- `y` copie le chemin absolu (défaut snacks) ; `Y` copie le chemin relatif à la racine
