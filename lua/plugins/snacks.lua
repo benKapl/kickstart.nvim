@@ -17,13 +17,14 @@ return {
   lazy = false,
   ---@type snacks.Config
   opts = {
+    input = { enabled = true },
     picker = {
       ui_select = true, -- remplace aussi vim.ui.select (code actions, etc.)
       win = {
         input = { keys = split_keys },
         list = { keys = split_keys },
       },
-      sources = {
+      Lazy = {
         explorer = {
           actions = {
             -- `y` copie le chemin absolu (défaut snacks) ; `Y` copie le chemin relatif à la racine
