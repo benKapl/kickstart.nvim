@@ -17,7 +17,10 @@ return {
   lazy = false,
   ---@type snacks.Config
   opts = {
-    input = { enabled = true },
+    input = { enabled = true }, -- remplace vim.ui.input (ex. `grn`) par une fenêtre flottante
+    styles = {
+      input = { row = false }, -- false = centré verticalement (défaut : 2 lignes sous le haut)
+    },
     picker = {
       ui_select = true, -- remplace aussi vim.ui.select (code actions, etc.)
       win = {

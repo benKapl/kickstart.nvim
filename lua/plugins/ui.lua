@@ -68,4 +68,24 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = { signs = false },
   },
+
+  { -- Ligne de commande (`:`, `/`, `?`) dans une fenêtre flottante au centre de l'écran
+    -- https://github.com/folke/noice.nvim
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    dependencies = { 'MunifTanjim/nui.nvim' },
+    opts = {
+      cmdline = { view = 'cmdline_popup' },
+      -- On ne garde que la cmdline : le reste reste géré par Neovim / snacks
+      messages = { enabled = false },
+      popupmenu = { enabled = false },
+      notify = { enabled = false },
+      lsp = {
+        progress = { enabled = false },
+        hover = { enabled = false },
+        signature = { enabled = false },
+        message = { enabled = false },
+      },
+    },
+  },
 }
