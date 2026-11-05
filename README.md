@@ -35,7 +35,7 @@ lua/config/
   lazy.lua               bootstrap de lazy.nvim
 lua/plugins/             un fichier par domaine (chaque fichier commence par son rôle et le lien de sa doc)
   ui.lua                 thème, which-key, todo-comments
-  snacks.lua             picker, explorer, lazygit
+  snacks.lua             picker, explorer, lazygit, terminal flottant
   search.lua             grug-far (rechercher / remplacer)
   editing.lua            mini (ai, surround, statusline), autopairs, guess-indent
   lsp.lua                serveurs LSP, mason, diagnostics, keymaps LSP

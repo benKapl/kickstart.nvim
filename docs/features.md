@@ -14,6 +14,7 @@ Leader = `Espace`. Aide-mémoire en direct : appuyer sur `Espace` et attendre (w
 - [Complétion](#complétion)
 - [Formatage](#formatage)
 - [Git](#git)
+- [Terminal flottant](#terminal-flottant)
 - [Fenêtres nvim et panes tuios](#fenêtres-nvim-et-panes-tuios)
 - [Ouvrir un fichier depuis un autre pane](#ouvrir-un-fichier-depuis-un-autre-pane-e)
 - [Édition de texte](#édition-de-texte)
@@ -152,6 +153,20 @@ prettierd pour JS/TS/JSON/CSS/HTML/Markdown/YAML, stylua pour Lua, goimports pou
 | `<leader>gl` | Historique du fichier courant |
 
 Signes dans la gouttière (gitsigns) : `+` ajouté, `~` modifié, `_` supprimé.
+
+## Terminal flottant
+
+`<leader>tt` ouvre un terminal dans une fenêtre flottante au centre, bordure arrondie de la couleur d'accent Ayu
+(`lua/plugins/snacks.lua`). Le shell reste vivant quand on le cache : `<leader>tt` le rouvre dans le même état.
+
+| Touche | Action |
+|---|---|
+| `<leader>tt` (mode normal) | Ouvrir / cacher le terminal |
+| `<Esc><Esc>` (dans le terminal) | Passer en mode normal (un seul `<Esc>` est transmis au programme) |
+| `q` (mode normal du terminal) | Cacher le terminal |
+| `gf` (mode normal du terminal) | Ouvrir le fichier sous le curseur et cacher le terminal |
+
+Pour un shell durable ou plusieurs commandes en parallèle, préférer un pane tuios.
 
 ## Fenêtres nvim et panes tuios
 
