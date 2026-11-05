@@ -27,7 +27,40 @@ return {
   ---@module 'render-markdown'
   ---@type render.md.UserConfig
   opts = {
-    completions = { lsp = { enabled = true } }, -- complétion des cases à cocher et des callouts
+    completions = { lsp = { enabled = true } },
+
+    heading = {
+      position = 'inline', -- icône à gauche (défaut: 'overlay')
+      width = 'block', -- le fond couvre le texte, pas toute la ligne
+      left_pad = 1,
+      right_pad = 2,
+      border = true, -- barres ▄ / ▀ autour des titres
+      border_virtual = true,
+      icons = { '󰲡 ', '󰲣 ', '󰲥 ', '󰲧 ', '󰲩 ', '󰲫 ' },
+    },
+
+    code = {
+      style = 'full', -- icône + nom du langage
+      width = 'block', -- fond limité à la largeur du code
+      left_pad = 2,
+      right_pad = 2,
+      border = 'thick',
+      language_name = true,
+    },
+
+    bullet = { icons = { '●', '○', '◆', '◇' } },
+
+    checkbox = {
+      unchecked = { icon = '󰄱 ' },
+      checked = { icon = '󰱒 ' },
+      custom = { todo = { raw = '[-]', rendered = '󰥔 ', highlight = 'RenderMarkdownTodo' } },
+    },
+
+    pipe_table = { preset = 'round' }, -- coins arrondis ('heavy' et 'double' existent aussi)
+
+    indent = { enabled = true }, -- indente le contenu sous chaque titre
+
+    anti_conceal = { enabled = true }, -- montre la source sur la ligne du curseur
   },
   keys = {
     { '<leader>tm', '<cmd>RenderMarkdown toggle<cr>', ft = 'markdown', desc = 'Rendu Markdown on/off' },
