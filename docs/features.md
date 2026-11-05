@@ -1,16 +1,30 @@
 # Fonctionnalités
 
-Chaque section décrit ce que fait la fonctionnalité, comment s'en servir et où elle est configurée.
-Leader = `Espace`. Aide-mémoire en direct : appuyer sur `Espace` et attendre (which-key), ou `<leader>sk`.
+Chaque section décrit ce que fait la fonctionnalité, où elle est configurée et sous quel préfixe la trouver.
+Leader = `Espace`.
+
+**Les raccourcis ne sont pas listés ici** : la référence est le `desc` de chaque mapping dans le code.
+Pour les voir : `Espace` puis attendre (which-key, groupe par groupe), ou `<leader>sk` (recherche dans tous les keymaps).
+Seules les touches internes aux plugins, que which-key n'affiche pas, sont rappelées ci-dessous.
+
+| Préfixe | Groupe |
+|---|---|
+| `<leader>s` | Recherche (pickers, grug-far) |
+| `<leader>g` | Git (lazygit, pickers git, diffview) |
+| `<leader>h` | Hunks git (gitsigns) |
+| `<leader>t` | Toggles (terminal, format on save, blame, inlay hints, rendu Markdown…) |
+| `<leader><Tab>` | Onglets |
+| `<leader>d` | Bases de données |
+| `<leader>R` | Requêtes HTTP |
+| `gr…` | LSP (définition, références, renommage, code actions…) |
 
 ## Sommaire
 
-- [Trouver un fichier](#trouver-un-fichier)
-- [Chercher dans le projet](#chercher-dans-le-projet-léquivalent-de-ctrlshiftf)
+- [Trouver un fichier, chercher dans le projet](#trouver-un-fichier-chercher-dans-le-projet)
 - [Rechercher / remplacer dans le projet](#rechercher--remplacer-dans-le-projet-grug-far)
 - [La quickfix](#la-quickfix)
 - [Arbre de fichiers](#arbre-de-fichiers-explorer)
-- [LSP](#lsp-navigation-diagnostics-renommage)
+- [LSP](#lsp)
 - [Complétion](#complétion)
 - [Formatage](#formatage)
 - [Git](#git)
@@ -21,152 +35,88 @@ Leader = `Espace`. Aide-mémoire en direct : appuyer sur `Espace` et attendre (w
 - [Requêtes HTTP](#requêtes-http-kulala)
 - [Bases de données](#bases-de-données-dadbod)
 - [Aperçu Markdown](#aperçu-markdown)
-- [Thème](#thème)
+- [Interface](#interface)
 
 ---
 
-## Trouver un fichier
+## Trouver un fichier, chercher dans le projet
 
-Picker de snacks.nvim (`lua/plugins/snacks.lua`). Recherche floue : taper quelques lettres du chemin suffit.
+Picker de snacks.nvim (`lua/plugins/snacks.lua`), sous `<leader>s…`. Raccourcis directs : `<leader><leader>`
+(fichiers récents puis projet), `<leader>/` (grep dans le projet), `<leader>,` (buffers).
+Recherche floue : quelques lettres du chemin suffisent. Le grep accepte les regex ; pour filtrer par fichier,
+syntaxe ripgrep après ` -- ` : `useState -- -g *.tsx`.
 
-| Touche | Action |
-|---|---|
-| `<leader><leader>` | Fichiers : récents et ouverts d'abord, puis le reste du projet |
-| `<leader>sf` | Fichiers du projet uniquement |
-| `<leader>s.` | Fichiers récents |
-| `<leader>,` | Buffers ouverts |
-| `<leader>sn` | Fichiers de la config nvim |
+Dans un picker : `<C-j>`/`<C-k>` naviguer, `<C-s>` / `<C-h>` split vertical / horizontal, `<Tab>` sélection multiple,
+`<C-q>` envoyer à la quickfix, `<A-h>` / `<A-i>` fichiers cachés / ignorés, `?` toutes les touches.
 
-Dans le picker : `<C-j>`/`<C-k>` naviguer, `<CR>` ouvrir, `<C-s>` / `<C-h>` ouvrir en split vertical / horizontal,
-`<Tab>` sélectionner plusieurs éléments, `<A-h>` fichiers cachés, `<A-i>` fichiers ignorés par git, `?` toutes les touches.
-
-## Chercher dans le projet (l'équivalent de Ctrl+Shift+F)
-
-| Touche | Action |
-|---|---|
-| `<leader>/` | Grep en direct dans tout le projet (ripgrep) |
-| `<leader>sw` | Cherche le mot sous le curseur, ou la sélection en mode visuel |
-| `<leader>sb` | Lignes du buffer courant |
-| `<leader>sB` | Grep dans les buffers ouverts |
-| `<leader>sr` | Rouvre la dernière recherche, telle quelle |
-
-Le grep accepte les regex. Pour filtrer par fichier, utiliser la syntaxe ripgrep après ` -- ` :
-`useState -- -g *.tsx`.
-
-Pour **modifier** les résultats, deux chemins :
-
-- remplacer un texte partout → [grug-far](#rechercher--remplacer-dans-le-projet-grug-far) ;
-- traiter les résultats un par un → `<C-q>` les envoie dans la [quickfix](#la-quickfix).
+Pour **modifier** les résultats : remplacer partout → [grug-far](#rechercher--remplacer-dans-le-projet-grug-far) ;
+un par un → `<C-q>` puis la [quickfix](#la-quickfix).
 
 ## Rechercher / remplacer dans le projet (grug-far)
 
-`lua/plugins/search.lua`. Ouvre un buffer avec des champs **Search**, **Replace**, **Files Filter**, **Paths**
-et **Flags** (options ripgrep) ; les résultats s'affichent en direct en dessous.
+`lua/plugins/search.lua`, sous `<leader>s…`. Buffer avec des champs **Search**, **Replace**, **Files Filter**, **Paths**
+et **Flags** (options ripgrep) ; résultats en direct en dessous.
 
-| Touche | Action |
-|---|---|
-| `<leader>sR` | Ouvrir (en visuel : préremplit avec la sélection) |
-| `<leader>sF` | Ouvrir, limité au fichier courant |
-| `<localleader>r` (dans grug-far) | Appliquer le remplacement partout |
-| `<localleader>s` | Synchroniser : les lignes de résultat **éditées à la main** sont écrites dans les fichiers |
-| `<localleader>q` | Envoyer les résultats dans la quickfix |
-| `<CR>` sur un résultat | Ouvrir le fichier à cette ligne |
-| `g?` | Aide |
+Dans grug-far : `<localleader>r` remplace partout, `<localleader>s` écrit dans les fichiers les lignes de résultat
+**éditées à la main**, `<localleader>q` envoie à la quickfix, `g?` aide.
 
-Usage type « multibuffer Zed » : chercher, éditer directement les lignes de résultat (avec les motions vim,
-`:s`, etc.), puis `<localleader>s`. Vérifier ensuite avec `git diff` ou `<leader>gg`.
+Usage type « multibuffer Zed » : chercher, éditer directement les lignes de résultat (motions vim, `:s`…),
+puis `<localleader>s`. Vérifier ensuite avec `git diff` ou lazygit.
 
 ## La quickfix
 
-Liste de positions (fichier, ligne, texte) intégrée à vim, affichée dans une fenêtre en bas.
-On la remplit depuis un picker (`<C-q>`), depuis grug-far, ou via `:make`, `:grep`.
-
-| Commande | Action |
-|---|---|
-| `:copen` / `:cclose` | Afficher / fermer la fenêtre |
-| `]q` / `[q` | Élément suivant / précédent (mappings natifs de nvim 0.11) |
-| `<leader>sq` | Parcourir la quickfix dans le picker |
-| `:cdo s/foo/bar/ \| update` | Exécuter une commande sur chaque ligne de la liste, puis enregistrer |
+Liste de positions (fichier, ligne, texte) intégrée à vim. On la remplit depuis un picker (`<C-q>`), depuis grug-far,
+ou via `:make`, `:grep`. `:copen` / `:cclose`, `]q` / `[q` (natifs), `:cdo s/foo/bar/ | update` pour agir sur
+chaque ligne puis enregistrer.
 
 ## Arbre de fichiers (explorer)
 
-`<leader>e` ouvre ou ferme l'explorer de snacks dans une barre à gauche. Il suit le fichier courant.
-`nvim .` (ou `nvim dossier/`, `:e dossier/`) ouvre l'explorer sur ce dossier.
+Explorer de snacks dans une barre à gauche (`<leader>e`), qui suit le fichier courant.
+`nvim .`, `nvim dossier/` et `:e dossier/` ouvrent l'explorer sur ce dossier (oil est désactivé).
 
-| Touche (dans l'explorer) | Action |
-|---|---|
-| `<CR>` / `l` | Ouvrir le fichier, déplier le dossier |
-| `h` | Replier |
-| `<C-s>` / `<C-h>` | Ouvrir dans un split vertical / horizontal |
-| `a` | Créer (finir par `/` pour un dossier) |
-| `r` | Renommer |
-| `d` | Supprimer |
-| `c` / `m` | Copier / déplacer |
-| `H` / `I` | Fichiers cachés / ignorés |
-| `/` | Filtrer |
-| `?` | Toutes les touches |
+Dans l'explorer : `a` créer (finir par `/` pour un dossier), `r` renommer, `d` supprimer, `c` / `m` copier / déplacer,
+`y` / `Y` copier le chemin absolu / relatif à la racine, `H` / `I` fichiers cachés / ignorés, `?` toutes les touches.
 
-## LSP (navigation, diagnostics, renommage)
+## LSP
 
-`lua/plugins/lsp.lua` + `lsp/<serveur>.lua`. Serveurs actifs : vtsls (TS/JS), eslint, lua_ls, gopls, jsonls,
-yamlls, bashls. Installation des binaires par mason (`:Mason`), sauf gopls (toolchain Go).
+`lua/plugins/lsp.lua` + `lsp/<serveur>.lua`, raccourcis sous `gr…` (posés quand un serveur s'attache).
+Serveurs actifs : vtsls (TS/JS), eslint, lua_ls, gopls, jsonls, yamlls, bashls. Binaires installés par mason
+(`:Mason`), sauf gopls (toolchain Go). Commandes Go supplémentaires (`:GoTest`, `:GoFillStruct`…) : go.nvim.
 
-| Touche | Action |
-|---|---|
-| `grd` | Aller à la définition |
-| `grr` | Références (picker) |
-| `gri` | Implémentations |
-| `grt` | Définition du type |
-| `grD` | Déclaration |
-| `grn` | Renommer le symbole dans tout le projet |
-| `gra` | Code actions (imports, corrections…) |
-| `K` | Documentation du symbole |
-| `gO` / `gW` | Symboles du fichier / du projet |
-| `<C-s>` (insertion) | Signature de la fonction |
-| `]d` / `[d` | Diagnostic suivant / précédent |
-| `<C-w>d` | Détail du diagnostic sous le curseur |
-| `<leader>sd` | Tous les diagnostics (picker) |
-| `<leader>q` | Diagnostics du buffer dans la location list |
-| `<leader>th` | Afficher / masquer les inlay hints |
-
-Ajouter un serveur : son nom dans `servers` (et `mason_tools` s'il vient de mason) dans `lua/plugins/lsp.lua` ;
-réglages spécifiques dans `lsp/<nom>.lua`. Vérifier avec `:checkhealth vim.lsp`.
+Ajouter un serveur : son nom dans `servers` (et `mason_tools` s'il vient de mason) ; réglages dans `lsp/<nom>.lua`.
+Vérifier avec `:checkhealth vim.lsp`.
 
 ## Complétion
 
-blink.cmp (`lua/plugins/completion.lua`) : suggestions LSP, chemins, snippets (friendly-snippets).
+blink.cmp (`lua/plugins/completion.lua`) : LSP, chemins, snippets (friendly-snippets). Preset `enter` :
 `<CR>` accepte, `<C-n>`/`<C-p>` naviguent, `<C-space>` ouvre le menu, `<C-e>` ferme,
 `<Tab>`/`<S-Tab>` sautent entre les champs d'un snippet.
 
 ## Formatage
 
-conform.nvim (`lua/plugins/format.lua`) formate à l'enregistrement. `<leader>f` formate à la demande.
-prettierd pour JS/TS/JSON/CSS/HTML/Markdown/YAML, stylua pour Lua, goimports pour Go ; sinon le formateur du serveur LSP.
-`:ConformInfo` montre ce qui s'applique au buffer.
+conform.nvim (`lua/plugins/format.lua`) formate à l'enregistrement, et à la demande. Le format on save se coupe
+pour le buffer ou globalement (toggles sous `<leader>t…`, non persistants) ; C et C++ ne sont jamais formatés
+à l'enregistrement. prettierd pour JS/TS/JSON/CSS/HTML/Markdown/YAML, stylua pour Lua, goimports pour Go ;
+sinon le formateur du serveur LSP. `:ConformInfo` montre ce qui s'applique au buffer.
 
 ## Git
 
-| Touche | Action |
-|---|---|
-| `<leader>gg` | Lazygit en plein écran par-dessus nvim ; `q` le ferme et revient au même endroit |
-| `<leader>gs` | Fichiers modifiés (picker, avec aperçu du diff) |
-| `<leader>gl` | Historique du fichier courant |
+Trois outils (`lua/plugins/git.lua`, `lua/plugins/snacks.lua`) :
 
-Signes dans la gouttière (gitsigns) : `+` ajouté, `~` modifié, `_` supprimé.
+- **lazygit** (`<leader>gg`) pour committer, en plein écran par-dessus nvim ; `q` revient au même endroit ;
+- **diffview** (`<leader>g…`) pour relire : diff complet côte à côte, historique d'un fichier ou du dépôt,
+  diff de la branche contre main ;
+- **gitsigns** (`<leader>h…`, `]h` / `[h`) pour agir hunk par hunk : stage, reset, aperçu, blame ;
+  text object `ih`. Signes dans la gouttière : `+` ajouté, `~` modifié, `_` supprimé.
 
 ## Terminal flottant
 
-`<leader>tt` ouvre un terminal dans une fenêtre flottante au centre, bordure arrondie de la couleur d'accent Ayu
-(`lua/plugins/snacks.lua`). Le shell reste vivant quand on le cache : `<leader>tt` le rouvre dans le même état.
+Terminal dans une fenêtre flottante, bordure arrondie de la couleur d'accent Ayu (`lua/plugins/snacks.lua`,
+toggle sous `<leader>t…`). Le shell reste vivant quand on le cache.
 
-| Touche | Action |
-|---|---|
-| `<leader>tt` (mode normal) | Ouvrir / cacher le terminal |
-| `<Esc><Esc>` (dans le terminal) | Passer en mode normal (un seul `<Esc>` est transmis au programme) |
-| `q` (mode normal du terminal) | Cacher le terminal |
-| `gf` (mode normal du terminal) | Ouvrir le fichier sous le curseur et cacher le terminal |
-
-Pour un shell durable ou plusieurs commandes en parallèle, préférer un pane tuios.
+Dans le terminal : `<Esc><Esc>` passe en mode normal (un seul `<Esc>` est transmis au programme), puis `q` cache
+le terminal et `gf` ouvre le fichier sous le curseur. Pour un shell durable ou plusieurs commandes en parallèle,
+préférer un pane tuios.
 
 ## Fenêtres nvim et panes tuios
 
@@ -175,16 +125,11 @@ Deux couches séparées, sans plugin de liaison :
 | | nvim (splits) | tuios (panes) |
 |---|---|---|
 | Changer de focus | `<C-h/j/k/l>` | `alt+flèches`, ou `ctrl+space` puis `h/j/k/l` |
-| Couper | `:vsplit` / `:split` (`<C-w>v` / `<C-w>s`) | raccourcis tuios |
+| Couper | `<C-w>v` / `<C-w>s` | raccourcis tuios |
 | Fermer | `<C-w>q` | raccourcis tuios |
 
-Nouveau split :
-- même fichier : `<C-w>v` / `<C-w>s` (`:vs` / `:sp`) ;
-- vide, pour y ouvrir ensuite un fichier avec `<leader><leader>` : `:vnew` / `<C-w>n` (`:new`) ;
-- directement sur un autre fichier : `<C-s>` / `<C-h>` dans un picker ou l'explorer.
-
-Autres commandes de fenêtres utiles : `<C-w>o` garder seulement la fenêtre courante, `<C-w>=` égaliser les tailles,
-`<C-w>H/J/K/L` déplacer la fenêtre vers un bord, `:help window-moving`.
+Ouvrir un autre fichier directement en split : `<C-s>` / `<C-h>` dans un picker ou l'explorer.
+Onglets nvim sous `<leader><Tab>…`, `gt` / `gT` pour passer de l'un à l'autre.
 
 ## Ouvrir un fichier depuis un autre pane (`e`)
 
@@ -201,32 +146,26 @@ Script : `bin/e` (à mettre dans le PATH, voir README).
 
 ## Édition de texte
 
+`lua/plugins/editing.lua` :
+
 - **Surround** (mini.surround) : `saiw)` entoure le mot de `()`, `sd'` supprime les `'` autour, `sr)'` remplace `()` par `''`.
-- **Text objects** (mini.ai) : `va)`, `ci"`, `dif` (fonction), `yaa` (argument)… fonctionnent aussi à distance (`cin"` = prochaines guillemets).
+- **Text objects** (mini.ai) : `va)`, `ci"`, `dif` (fonction), `yaa` (argument)… aussi à distance (`cin"` = prochaines guillemets).
 - **Paires** (nvim-autopairs) : fermeture automatique des parenthèses et guillemets.
 - **Bloc visuel** : `<C-v>` (si Windows Terminal ne l'intercepte pas) ou `<C-q>`.
 
 ## Requêtes HTTP (kulala)
 
-Dans un fichier `.http` : `<leader>Rs` envoie la requête sous le curseur, `<leader>Ra` toutes, `<leader>Rb` ouvre un brouillon.
+`lua/plugins/lang/http.lua`. Dans un fichier `.http` / `.rest` : envoyer une requête, toutes, ou ouvrir un brouillon,
+sous `<leader>R…`.
 
 ## Bases de données (dadbod)
 
-vim-dadbod + vim-dadbod-ui (`lua/plugins/db.lua`), chargés au premier raccourci `<leader>d` ou à la première commande `:DBUI*`.
+vim-dadbod + vim-dadbod-ui (`lua/plugins/db.lua`), sous `<leader>d…`, chargés au premier raccourci ou à la première
+commande `:DBUI*`. Dans un buffer SQL : exécuter le buffer ou la sélection, sauvegarder la requête.
 
-| Touche | Action |
-|---|---|
-| `<leader>du` | Ouvrir / fermer le panneau des connexions |
-| `<leader>da` | Ajouter une connexion : URL, puis un nom |
-| `<leader>de` (buffer SQL) | Exécuter tout le buffer ; en visuel, seulement la sélection |
-| `<leader>ds` (buffer SQL) | Sauvegarder la requête (elle apparaît dans *Saved queries* du panneau) |
-
-Dans le panneau : `<CR>` / `o` déplie une connexion ou une table, ouvre une requête ; `S` ouvre en split vertical,
-`d` supprime, `r` renomme, `R` rafraîchit, `q` ferme, `?` toutes les touches.
-Dans les résultats : `vic` copie la cellule, `yh` les en-têtes, `<C-]>` suit une clé étrangère, `<leader>R` bascule
-la vue tableau / une ligne par colonne.
-Plus rares, par commande : `:DBUIFindBuffer` (rattacher un `.sql` à une connexion), `:DBUIRenameBuffer`,
-`:DBUILastQueryInfo` (durée de la dernière requête).
+Dans le panneau : `<CR>` / `o` déplie ou ouvre, `S` split vertical, `d` supprime, `r` renomme, `R` rafraîchit,
+`q` ferme, `?` toutes les touches. Dans les résultats : `vic` copie la cellule, `yh` les en-têtes, `<C-]>` suit une
+clé étrangère. Commandes plus rares : `:DBUIFindBuffer`, `:DBUIRenameBuffer`, `:DBUILastQueryInfo`.
 
 URL au format dadbod, pas JDBC : `mysql://user:pass@127.0.0.1:4321/base`, `postgres://…`, `sqlite:chemin.db`.
 Mettre `127.0.0.1` plutôt que `localhost` : avec `localhost`, le client `mysql` passe par le socket Unix et ignore
@@ -238,18 +177,21 @@ ou la supprimer directement dans le fichier.
 
 ## Aperçu Markdown
 
-render-markdown.nvim (`lua/plugins/lang/markdown.lua`) met en forme les fichiers `.md` directement dans le buffer :
-titres, tableaux, listes, cases à cocher, blocs de code. Sur la ligne du curseur, le texte brut réapparaît pour l'édition.
-`<leader>tm` active / désactive le rendu. Les blocs Mermaid restent affichés en source.
+render-markdown.nvim (`lua/plugins/lang/markdown.lua`) met en forme les fichiers `.md` dans le buffer : titres,
+tableaux, listes, cases à cocher, blocs de code. Sur la ligne du curseur, le texte brut réapparaît pour l'édition.
+Rendu activable / désactivable sous `<leader>t…`. Les blocs Mermaid restent en source.
 
-`<leader>tM` ouvre à côté un pane tuios qui dessine les diagrammes Mermaid du fichier (`tuios mermaid --watch`),
-en caractères de boîte, et les redessine à chaque `:w`. Le focus reste dans nvim ; `q` dans le pane le ferme.
+Diagrammes Mermaid (toggle sous `<leader>t…`, fichiers Markdown) : ouvre à côté un pane tuios qui les dessine
+en caractères de boîte (`tuios mermaid --watch`) et les redessine à chaque `:w`. Le focus reste dans nvim ;
+`q` dans le pane le ferme.
 
-## Thème
+## Interface
 
-Ayu Dark (neovim-ayu, `lua/plugins/ui.lua`), le thème utilisé dans Zed. `<leader>sC` liste les thèmes installés
-avec aperçu ; tokyonight reste installé (`:colorscheme tokyonight-night`).
-
-Pane actif : bordure orange fine (colorful-winsep, `:Winsep toggle`), fond légèrement plus sombre que les panes
-inactifs, ligne du curseur visible seulement dans ce pane. Dans l'explorer, la ligne du fichier ouvert dans le
-pane actif est surlignée en rouge (`lua/config/autocmds.lua`).
+- **Thème** : Ayu Dark (neovim-ayu, `lua/plugins/ui.lua`), comme dans Zed. `<leader>sC` liste les thèmes avec aperçu ;
+  tokyonight reste installé.
+- **Pane actif** : bordure orange fine (colorful-winsep, `:Winsep toggle`), fond légèrement plus sombre que les panes
+  inactifs, ligne du curseur seulement dans ce pane. Dans l'explorer, la ligne du fichier ouvert dans le pane actif
+  est surlignée en rouge (`lua/config/autocmds.lua`).
+- **Ligne de commande** : `:`, `/` et `?` s'affichent dans une fenêtre au centre (noice.nvim, cmdline seulement).
+- **Saisies et choix** : les invites (ex. renommage LSP) s'ouvrent dans une fenêtre flottante centrée, les listes de
+  choix (code actions…) dans le picker (snacks `input` et `ui_select`).

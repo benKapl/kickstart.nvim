@@ -34,7 +34,7 @@ lua/config/
   autocmds.lua           autocommandes, socket serveur par session tuios
   lazy.lua               bootstrap de lazy.nvim
 lua/plugins/             un fichier par domaine (chaque fichier commence par son rôle et le lien de sa doc)
-  ui.lua                 thème, which-key, todo-comments
+  ui.lua                 thème, bordure du pane actif, which-key, todo-comments, noice (cmdline)
   snacks.lua             picker, explorer, lazygit, terminal flottant
   search.lua             grug-far (rechercher / remplacer)
   editing.lua            mini (ai, surround, statusline), autopairs, guess-indent
@@ -42,9 +42,10 @@ lua/plugins/             un fichier par domaine (chaque fichier commence par son
   completion.lua         blink.cmp, LuaSnip
   format.lua             conform
   treesitter.lua
-  git.lua                gitsigns
+  git.lua                gitsigns (hunks), diffview (diffs, historique)
+  db.lua                 vim-dadbod-ui (bases de données)
   oil.lua                désactivé (enabled = false), remplacé par l'explorer
-  lang/                  plugins propres à un langage (go, http)
+  lang/                  plugins propres à un langage (go, http, markdown)
 lsp/                     réglages par serveur LSP, fusionnés avec ceux de nvim-lspconfig
 bin/e                    ouvre des fichiers dans le nvim de la session tuios
 docs/                    documentation et notes de décision
@@ -70,3 +71,13 @@ docs/                    documentation et notes de décision
 
 Un fichier n'est **jamais modifié** : il est déplacé d'un dossier à l'autre ou supprimé.
 Si une décision change, on écrit un nouveau fichier daté.
+
+Une note porte sur un élément structurant : ajout, modification ou suppression d'une fonctionnalité ou d'un plugin.
+Pas de note pour un raccourci ajouté ou changé.
+
+### Raccourcis
+
+Les raccourcis ne sont décrits qu'à un endroit : le `desc` du mapping, dans le code. which-key (`Espace` puis attendre)
+et `<leader>sk` les affichent. `docs/features.md` ne cite que les préfixes (`<leader>g…`) et les touches internes
+aux plugins que which-key ne montre pas ; tout nouveau mapping doit avoir un `desc`, et un nouveau préfixe un groupe
+which-key (`lua/plugins/ui.lua`).
