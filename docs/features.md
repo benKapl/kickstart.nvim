@@ -16,6 +16,7 @@ Seules les touches internes aux plugins, que which-key n'affiche pas, sont rappe
 | `<leader><Tab>` | Onglets |
 | `<leader>d` | Bases de données |
 | `<leader>R` | Requêtes HTTP |
+| `<leader>z` | Notes zk |
 | `gr…` | LSP (définition, références, renommage, code actions…) |
 
 ## Sommaire
@@ -35,6 +36,7 @@ Seules les touches internes aux plugins, que which-key n'affiche pas, sont rappe
 - [Requêtes HTTP](#requêtes-http-kulala)
 - [Bases de données](#bases-de-données-dadbod)
 - [Aperçu Markdown](#aperçu-markdown)
+- [Notes zk](#notes-zk)
 - [Interface](#interface)
 
 ---
@@ -184,6 +186,22 @@ Rendu activable / désactivable sous `<leader>t…`. Les blocs Mermaid restent e
 Diagrammes Mermaid (toggle sous `<leader>t…`, fichiers Markdown) : ouvre à côté un pane tuios qui les dessine
 en caractères de boîte (`tuios mermaid --watch`) et les redessine à chaque `:w`. Le focus reste dans nvim ;
 `q` dans le pane le ferme.
+
+## Notes zk
+
+zk-nvim (`lua/plugins/notes.lua`) branche le CLI `zk` sur nvim, sous `<leader>z…` :
+
+- **Partout** : créer une note (le titre est demandé dans une saisie flottante), ouvrir une note, filtrer par tag,
+  chercher dans le contenu. Hors d'un carnet, ces commandes visent `$ZK_NOTEBOOK_DIR` s'il est défini, sinon
+  le dossier courant.
+- **Dans une note d'un carnet** (dossier parent contenant `.zk/`) : backlinks, liens sortants, insérer un lien,
+  créer une note dans le dossier courant ; en visuel, créer une note avec la sélection pour titre ou pour contenu
+  (la sélection devient un lien), ou lier la sélection à une note existante.
+- **LSP `zk`** attaché aux Markdown du carnet : complétion des liens en tapant `[[`, diagnostics de liens morts,
+  `K` sur un lien pour l'aperçu de la note, `grd` pour la suivre.
+
+Les pickers sont ceux de snacks. Réglages du carnet (format des liens, nom des fichiers, modèles) :
+`<carnet>/.zk/config.toml`.
 
 ## Interface
 
