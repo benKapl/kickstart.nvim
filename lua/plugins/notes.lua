@@ -20,14 +20,26 @@ local function notebook_keymaps(buf)
   local map = function(mode, keys, func, desc)
     vim.keymap.set(mode, keys, func, { buffer = buf, desc = 'zk: ' .. desc })
   end
+  -- Dossier de création : celui du fichier courant, sauf dans journal/ où le groupe `daily`
+  -- de .zk/config.toml impose filename = date du jour (zk retomberait sur la note du jour
+  -- existante et insérerait un lien vers elle-même) → on crée alors à la racine du carnet.
   local here = function()
-    return vim.fn.expand '%:p:h'
+    local dir = vim.fn.expand '%:p:h'
+    local root = require('zk.util').notebook_root(dir)
+    local rel = root and vim.fs.relpath(root, dir)
+    if rel and (rel == 'journal' or vim.startswith(rel, 'journal/')) then
+      return root
+    end
+    return dir
   end
 
   map('n', '<leader>zN', function()
     with_title('ZkNew', { dir = here() })
   end, 'Nouvelle note dans ce dossier')
-  map('x', '<leader>zt', ":'<,'>ZkNewFromTitleSelection { dir = vim.fn.expand('%:p:h') }<cr>", 'Note avec la sélection pour titre')
+  map('x', '<leader>zt', function()
+    vim.cmd 'normal! \27' -- quitte le mode visuel pour fixer les marques '< et '>
+    require('zk.commands').get 'ZkNewFromTitleSelection' { dir = here() }
+  end, 'Note avec la sélection pour titre')
   map('x', '<leader>zc', function()
     vim.cmd 'normal! \27' -- quitte le mode visuel pour fixer les marques '< et '>
     with_title('ZkNewFromContentSelection', { dir = here() })
@@ -50,7 +62,7 @@ return {
       end,
       desc = 'Nouvelle note',
     },
-    { '<leader>zo', "<cmd>ZkNotes { sort = { 'modified' } }<cr>", desc = 'Ouvrir une note' },
+    { '<leader>ze', "<cmd>ZkNotes { sort = { 'modified' } }<cr>", desc = 'Ouvrir une note' },
     { '<leader>zT', '<cmd>ZkTags<cr>', desc = 'Notes par tag' },
     {
       '<leader>zf',
