@@ -27,6 +27,8 @@ return {
   ---@module 'render-markdown'
   ---@type render.md.UserConfig
   opts = {
+    enabled = false, -- désactivé par défaut, activer avec <leader>tm
+
     completions = { lsp = { enabled = true } },
 
     heading = {
