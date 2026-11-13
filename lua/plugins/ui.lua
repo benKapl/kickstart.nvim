@@ -58,6 +58,7 @@ return {
         { '<leader>R', group = 'Requêtes HTTP (kulala)' },
         { '<leader>d', group = 'Base de données', mode = { 'n', 'x' } },
         { '<leader>z', group = 'Notes zk', mode = { 'n', 'x' } },
+        { '<leader>.', group = 'Session' },
       },
     },
   },
