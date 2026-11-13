@@ -29,7 +29,7 @@ Seules les touches internes aux plugins, que which-key n'affiche pas, sont rappe
 - [Complétion](#complétion)
 - [Formatage](#formatage)
 - [Git](#git)
-- [Terminal flottant](#terminal-flottant)
+- [Terminal](#terminal)
 - [Fenêtres nvim et panes tuios](#fenêtres-nvim-et-panes-tuios)
 - [Ouvrir un fichier depuis un autre pane](#ouvrir-un-fichier-depuis-un-autre-pane-e)
 - [Édition de texte](#édition-de-texte)
@@ -111,10 +111,12 @@ Trois outils (`lua/plugins/git.lua`, `lua/plugins/snacks.lua`) :
 - **gitsigns** (`<leader>h…`, `]h` / `[h`) pour agir hunk par hunk : stage, reset, aperçu, blame ;
   text object `ih`. Signes dans la gouttière : `+` ajouté, `~` modifié, `_` supprimé.
 
-## Terminal flottant
+## Terminal
 
-Terminal dans une fenêtre flottante, bordure arrondie de la couleur d'accent Ayu (`lua/plugins/snacks.lua`,
-toggle sous `<leader>t…`). Le shell reste vivant quand on le cache.
+Terminal en split en bas de l'écran, 30 % de la hauteur, façon VS Code, fond plus sombre que l'éditeur
+(`lua/plugins/snacks.lua`). Toggle : `<leader>tt`, ou `<C-_>` qui marche aussi depuis le terminal. C'est le
+shell par défaut en mode interactif : alias et config du `~/.bashrc` disponibles. Le shell reste vivant quand on
+le cache.
 
 Dans le terminal : `<Esc><Esc>` passe en mode normal (un seul `<Esc>` est transmis au programme), puis `q` cache
 le terminal et `gf` ouvre le fichier sous le curseur. Pour un shell durable ou plusieurs commandes en parallèle,

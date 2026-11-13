@@ -4,6 +4,8 @@
 --
 -- Diagrammes Mermaid : <leader>tM ouvre un pane tuios à côté qui dessine les blocs mermaid du fichier
 -- (`tuios mermaid --watch`) et les redessine à chaque :w. `q` dans le pane le ferme.
+--
+-- Tâches (- [ ]) : <leader>mx bascule [x], <leader>m- bascule [-] (même état -> retour à [ ]).
 
 -- Ouvre `tuios mermaid --watch` sur le fichier courant dans un nouveau pane tuios, sans prendre le focus
 local function mermaid_pane()
@@ -18,6 +20,15 @@ local function mermaid_pane()
       end)
     end
   end)
+end
+
+-- Change l'état de la case de la ligne courante ; même état -> revient à [ ]
+local function set_task_state(c)
+  local line = vim.api.nvim_get_current_line()
+  local new = line:gsub('^(%s*[-*+] %[)(.)(%])', function(a, cur, b)
+    return a .. (cur == c and ' ' or c) .. b
+  end, 1)
+  vim.api.nvim_set_current_line(new)
 end
 
 return {
@@ -67,5 +78,7 @@ return {
   keys = {
     { '<leader>tm', '<cmd>RenderMarkdown toggle<cr>', ft = 'markdown', desc = 'Rendu Markdown on/off' },
     { '<leader>tM', mermaid_pane, ft = 'markdown', desc = 'Diagrammes Mermaid (pane tuios)' },
+    { '<leader>mx', function() set_task_state 'x' end, ft = 'markdown', desc = 'Tâche DONE [x]' },
+    { '<leader>m-', function() set_task_state '-' end, ft = 'markdown', desc = 'Tâche en cours [-]' },
   },
 }

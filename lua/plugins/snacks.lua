@@ -1,4 +1,4 @@
--- snacks.nvim : picker (fichiers, grep, LSP…), explorer (arbre de fichiers), lazygit et terminal flottant.
+-- snacks.nvim : picker (fichiers, grep, LSP…), explorer (arbre de fichiers), lazygit et terminal.
 -- Doc : https://github.com/folke/snacks.nvim (`:help snacks-picker`, `:help snacks-explorer`)
 --
 -- Dans un picker : <C-j>/<C-k> naviguer, <Tab> sélectionner plusieurs, <C-q> envoyer à la quickfix,
@@ -11,17 +11,15 @@ local split_keys = {
   ['<c-h>'] = { 'edit_split', mode = { 'i', 'n' } },
 }
 
--- Terminal flottant : bordure arrondie de la couleur d'accent Ayu (comme la bordure du pane actif)
-local function toggle_float_terminal()
-  vim.api.nvim_set_hl(0, 'SnacksTerminalBorder', { fg = '#E6B450' }) -- redéfini à chaque appel : survit à un `:colorscheme`
+-- Terminal en split horizontal en bas (façon VS Code). Shell par défaut (bash interactif : alias du ~/.bashrc).
+-- Fond plus sombre que l'éditeur (#0B0E14), actif ou non, pour le distinguer du code.
+local function toggle_terminal()
+  vim.api.nvim_set_hl(0, 'SnacksTerminalNormal', { bg = '#05070A' }) -- redéfini à chaque appel : survit à un `:colorscheme`
   Snacks.terminal.toggle(nil, {
     win = {
-      position = 'float',
-      border = 'rounded',
-      wo = {
-        -- Remplace la valeur par défaut de snacks : on la reprend en ajoutant FloatBorder
-        winhighlight = 'Normal:SnacksNormal,NormalNC:SnacksNormalNC,FloatBorder:SnacksTerminalBorder',
-      },
+      position = 'bottom',
+      height = 0.3, -- 30 % de la hauteur
+      wo = { winhighlight = 'Normal:SnacksTerminalNormal,NormalNC:SnacksTerminalNormal' },
     },
   })
 end
@@ -98,9 +96,11 @@ return {
     },
     {
       '<leader>tt',
-      toggle_float_terminal,
-      desc = 'Terminal flottant',
+      toggle_terminal,
+      desc = 'Terminal',
     },
+    -- Toggle direct, y compris depuis le mode terminal.
+    { '<C-_>', toggle_terminal, mode = { 'n', 't' }, desc = 'Terminal' },
 
     -- Recherche
     {
