@@ -55,7 +55,7 @@ return {
         { '<leader>t', group = 'Toggle' },
         { '<leader><Tab>', group = 'Tabs' },
         { '<leader>h', group = 'Hunk git', mode = { 'n', 'v' } },
-        { '<leader>R', group = 'Requêtes HTTP (kulala)' },
+        { '<leader>R', group = 'Requêtes HTTP (rest)' },
         { '<leader>d', group = 'Base de données', mode = { 'n', 'x' } },
         { '<leader>z', group = 'Notes zk', mode = { 'n', 'x' } },
         { '<leader>.', group = 'Session' },

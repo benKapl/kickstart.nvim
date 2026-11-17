@@ -27,6 +27,7 @@ return {
       'json',
       'yaml',
       'toml',
+      'http',
     },
     auto_install = true, -- installe le parser d'un langage à l'ouverture d'un fichier
     highlight = {

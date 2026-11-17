@@ -16,4 +16,6 @@ require('lazy').setup({
   { import = 'plugins.lang' },
 }, {
   change_detection = { notify = false },
+  -- Pas de luarocks : les dépendances des plugins sont déclarées à la main dans leurs specs.
+  rocks = { enabled = false },
 })
