@@ -53,7 +53,7 @@ return {
         { '<leader>s', group = 'Recherche' },
         { '<leader>g', group = 'Git' },
         { '<leader>t', group = 'Toggle' },
-        { '<leader><Tab>', group = 'Tabs' },
+        { '<leader>T', group = 'Tabs' },
         { '<leader>h', group = 'Hunk git', mode = { 'n', 'v' } },
         { '<leader>R', group = 'Requêtes HTTP (rest)' },
         { '<leader>d', group = 'Base de données', mode = { 'n', 'x' } },

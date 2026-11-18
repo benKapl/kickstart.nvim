@@ -7,17 +7,17 @@ Leader = `Espace`.
 Pour les voir : `Espace` puis attendre (which-key, groupe par groupe), ou `<leader>sk` (recherche dans tous les keymaps).
 Seules les touches internes aux plugins, que which-key n'affiche pas, sont rappelées ci-dessous.
 
-| Préfixe | Groupe |
-|---|---|
-| `<leader>s` | Recherche (pickers, grug-far) |
-| `<leader>g` | Git (lazygit, pickers git, diffview) |
-| `<leader>h` | Hunks git (gitsigns) |
-| `<leader>t` | Toggles (terminal, format on save, blame, inlay hints, rendu Markdown…) |
-| `<leader><Tab>` | Onglets |
-| `<leader>d` | Bases de données |
-| `<leader>R` | Requêtes HTTP |
-| `<leader>z` | Notes zk |
-| `gr…` | LSP (définition, références, renommage, code actions…) |
+| Préfixe       | Groupe                                                                  |
+| ------------- | ----------------------------------------------------------------------- |
+| `<leader>s`   | Recherche (pickers, grug-far)                                           |
+| `<leader>g`   | Git (lazygit, pickers git, diffview)                                    |
+| `<leader>h`   | Hunks git (gitsigns)                                                    |
+| `<leader>t`   | Toggles (terminal, format on save, blame, inlay hints, rendu Markdown…) |
+| `<leader>T`   | Onglets                                                                 |
+| `<leader>d`   | Bases de données                                                        |
+| `<leader>R`   | Requêtes HTTP                                                           |
+| `<leader>z`   | Notes zk                                                                |
+| `gr…`         | LSP (définition, références, renommage, code actions…)                  |
 
 ## Sommaire
 
@@ -47,7 +47,7 @@ Seules les touches internes aux plugins, que which-key n'affiche pas, sont rappe
 Picker de snacks.nvim (`lua/plugins/snacks.lua`), sous `<leader>s…`. Raccourcis directs : `<leader><leader>`
 (fichiers récents puis projet), `<leader>/` (grep dans le projet), `<leader>,` (buffers).
 Recherche floue : quelques lettres du chemin suffisent. Le grep accepte les regex ; pour filtrer par fichier,
-syntaxe ripgrep après ` -- ` : `useState -- -g *.tsx`.
+syntaxe ripgrep après `--` : `useState -- -g *.tsx`.
 
 Dans un picker : `<C-j>`/`<C-k>` naviguer, `<C-s>` / `<C-h>` split vertical / horizontal, `<Tab>` sélection multiple,
 `<C-q>` envoyer à la quickfix, `<A-h>` / `<A-i>` fichiers cachés / ignorés, `?` toutes les touches.
@@ -135,14 +135,14 @@ préférer un pane tuios.
 
 Deux couches séparées, sans plugin de liaison :
 
-| | nvim (splits) | tuios (panes) |
-|---|---|---|
-| Changer de focus | `<C-h/j/k/l>` | `alt+flèches`, ou `ctrl+space` puis `h/j/k/l` |
-| Couper | `<C-w>v` / `<C-w>s` | raccourcis tuios |
-| Fermer | `<C-w>q` | raccourcis tuios |
+|                  | nvim (splits)       | tuios (panes)                                 |
+| ---------------- | ------------------- | --------------------------------------------- |
+| Changer de focus | `<C-h/j/k/l>`       | `alt+flèches`, ou `ctrl+space` puis `h/j/k/l` |
+| Couper           | `<C-w>v` / `<C-w>s` | raccourcis tuios                              |
+| Fermer           | `<C-w>q`            | raccourcis tuios                              |
 
 Ouvrir un autre fichier directement en split : `<C-s>` / `<C-h>` dans un picker ou l'explorer.
-Onglets nvim sous `<leader><Tab>…`, `gt` / `gT` pour passer de l'un à l'autre.
+Onglets nvim sous `<leader>T…`, `gt` / `gT` pour passer de l'un à l'autre.
 
 ## Ouvrir un fichier depuis un autre pane (`e`)
 
