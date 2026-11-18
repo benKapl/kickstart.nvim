@@ -60,7 +60,8 @@ return {
         },
       },
     },
-    explorer = { replace_netrw = true }, -- `nvim .` et `:e dossier/` ouvrent l'explorer
+    -- L'explorer reste fermé au démarrage (`<leader>e` pour l'ouvrir). `nvim .` : voir lua/config/autocmds.lua
+    explorer = { replace_netrw = false },
     lazygit = {},
     terminal = {},
   },

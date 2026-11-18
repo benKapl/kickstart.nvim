@@ -74,7 +74,8 @@ chaque ligne puis enregistrer.
 ## Arbre de fichiers (explorer)
 
 Explorer de snacks dans une barre à gauche (`<leader>e`), qui suit le fichier courant.
-`nvim .`, `nvim dossier/` et `:e dossier/` ouvrent l'explorer sur ce dossier (oil est désactivé).
+L'explorer est fermé au démarrage : `<leader>e` l'ouvre. `nvim .` et `nvim dossier/` se placent dans le dossier
+et démarrent sur un buffer vide (netrw et oil sont désactivés).
 
 Dans l'explorer : `a` créer (finir par `/` pour un dossier), `r` renommer, `d` supprimer, `c` / `m` copier / déplacer,
 `y` / `Y` copier le chemin absolu / relatif à la racine, `H` / `I` fichiers cachés / ignorés, `?` toutes les touches.

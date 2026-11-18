@@ -4,6 +4,10 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- netrw désactivé : ni lui ni l'explorer ne s'ouvrent sur `nvim .` (voir lua/config/autocmds.lua)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Le terminal utilise une Nerd Font (icônes dans le picker, l'explorer, la statusline)
 vim.g.have_nerd_font = true
 
