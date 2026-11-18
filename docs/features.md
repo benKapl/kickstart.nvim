@@ -25,6 +25,7 @@ Seules les touches internes aux plugins, que which-key n'affiche pas, sont rappe
 - [Rechercher / remplacer dans le projet](#rechercher--remplacer-dans-le-projet-grug-far)
 - [La quickfix](#la-quickfix)
 - [Arbre de fichiers](#arbre-de-fichiers-explorer)
+- [Dossier éditable (oil)](#dossier-éditable-oil)
 - [LSP](#lsp)
 - [Complétion](#complétion)
 - [Formatage](#formatage)
@@ -74,11 +75,18 @@ chaque ligne puis enregistrer.
 ## Arbre de fichiers (explorer)
 
 Explorer de snacks dans une barre à gauche (`<leader>e`), qui suit le fichier courant.
-L'explorer est fermé au démarrage : `<leader>e` l'ouvre. `nvim .` et `nvim dossier/` se placent dans le dossier
-et démarrent sur un buffer vide (netrw et oil sont désactivés).
+L'explorer est fermé au démarrage : `<leader>e` l'ouvre. `nvim .`, `nvim dossier/` et `:e dossier/` ouvrent oil
+(netrw est désactivé).
 
 Dans l'explorer : `a` créer (finir par `/` pour un dossier), `r` renommer, `d` supprimer, `c` / `m` copier / déplacer,
-`y` / `Y` copier le chemin absolu / relatif à la racine, `H` / `I` fichiers cachés / ignorés, `?` toutes les touches.
+`y` / `Y` copier le chemin absolu / relatif à la racine, `H` / `I` masquer / afficher les fichiers cachés / ignorés
+(visibles par défaut), `?` toutes les touches.
+
+## Dossier éditable (oil)
+
+Oil affiche un dossier comme un buffer texte : renommer = éditer la ligne, supprimer = `dd`, déplacer = couper /
+coller dans un autre dossier, `:w` applique. `<leader>o` (ou `-`) ouvre le dossier du fichier courant, `<leader>O` le
+dossier de travail. Dans oil : `g.` fichiers cachés (visibles par défaut), `<C-v>` / `<C-s>` split, `g?` aide.
 
 ## LSP
 

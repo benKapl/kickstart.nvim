@@ -35,24 +35,6 @@ vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter', 'WinLeave' }, {
   end,
 })
 
--- `nvim dossier` : se place dans le dossier et démarre sur un buffer vide, explorer fermé
--- (`<leader>e` pour l'ouvrir).
-vim.api.nvim_create_autocmd('VimEnter', {
-  desc = 'nvim dossier : cd + buffer vide',
-  group = vim.api.nvim_create_augroup('config-dir-arg', { clear = true }),
-  callback = function()
-    local arg = vim.fn.argv(0)
-    if vim.fn.argc() ~= 1 or vim.fn.isdirectory(arg) == 0 then
-      return
-    end
-    local dir_buf = vim.api.nvim_get_current_buf()
-    vim.cmd.cd(vim.fn.fnameescape(arg))
-    vim.cmd.enew()
-    pcall(vim.api.nvim_buf_delete, dir_buf, { force = true })
-    vim.cmd.argdelete '*'
-  end,
-})
-
 -- Serveur par session tuios : `e fichier` (bin/e), lancé depuis un autre pane de la session,
 -- ouvre le fichier dans ce nvim. Le premier nvim de la session prend le socket ; les suivants l'ignorent.
 local session = vim.env.TUIOS_SESSION

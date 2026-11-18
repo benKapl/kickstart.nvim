@@ -1,13 +1,17 @@
 -- oil.nvim : un dossier s'édite comme un buffer texte. Renommer = éditer la ligne, déplacer =
 -- couper/coller la ligne dans un autre dossier, supprimer = dd. `:w` applique les changements.
 -- Doc : https://github.com/stevearc/oil.nvim (`g?` dans oil pour l'aide)
-
--- Désactivé (2026-10-28) : l'explorer de snacks ouvre les dossiers. Remettre `enabled = true` pour le retrouver.
+--
+-- Cohabite avec l'explorer de snacks (`<leader>e`) : oil ouvre les dossiers (`nvim .`, `:e dossier/`).
 
 return {
   'stevearc/oil.nvim',
-  enabled = false,
+  lazy = false, -- chargé au démarrage pour prendre en charge `nvim .` et `:e dossier/`
   dependencies = { 'nvim-tree/nvim-web-devicons' },
+  keys = {
+    { '<leader>o', '<CMD>Oil<CR>', desc = 'Oil (dossier du fichier)' },
+    { '<leader>O', '<CMD>Oil .<CR>', desc = 'Oil (dossier de travail)' },
+  },
   config = function()
     require('oil').setup {
       default_file_explorer = true, -- `nvim .` et `:e dossier/` ouvrent oil
@@ -20,6 +24,7 @@ return {
         ['<C-s>'] = { 'actions.select', opts = { horizontal = true }, mode = 'n' },
         ['<C-h>'] = false, -- rend <C-h> à la navigation entre fenêtres
       },
+      -- Fichiers cachés visibles (`g.` pour basculer). Oil ne masque pas les fichiers ignorés par git.
       view_options = { show_hidden = true },
     }
 

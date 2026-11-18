@@ -44,7 +44,7 @@ lua/plugins/             un fichier par domaine (chaque fichier commence par son
   treesitter.lua
   git.lua                gitsigns (hunks), diffview (diffs, historique)
   db.lua                 vim-dadbod-ui (bases de données)
-  oil.lua                désactivé (enabled = false), remplacé par l'explorer
+  oil.lua                oil : dossier éditable comme un buffer, ouvre `nvim .` et `:e dossier/`
   lang/                  plugins propres à un langage (go, http, markdown)
 lsp/                     réglages par serveur LSP, fusionnés avec ceux de nvim-lspconfig
 bin/e                    ouvre des fichiers dans le nvim de la session tuios

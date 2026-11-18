@@ -42,6 +42,8 @@ return {
       },
       sources = {
         explorer = {
+          hidden = true, -- fichiers cachés visibles (`H` pour basculer)
+          ignored = true, -- fichiers ignorés par git visibles (`I` pour basculer)
           actions = {
             -- `y` copie le chemin absolu (défaut snacks) ; `Y` copie le chemin relatif à la racine
             -- de l'explorer (le dossier affiché en haut)
@@ -60,7 +62,7 @@ return {
         },
       },
     },
-    -- L'explorer reste fermé au démarrage (`<leader>e` pour l'ouvrir). `nvim .` : voir lua/config/autocmds.lua
+    -- L'explorer reste fermé au démarrage (`<leader>e` pour l'ouvrir). Les dossiers s'ouvrent dans oil.
     explorer = { replace_netrw = false },
     lazygit = {},
     terminal = {},
