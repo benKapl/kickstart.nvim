@@ -32,6 +32,21 @@ return {
           map('<leader>ds', '<Plug>(DBUI_SaveQuery)', 'Sauvegarder la requête')
         end,
       })
+
+      -- Le panneau DBUI mappe <C-j>/<C-k> (dernier/premier élément du même niveau) : on les rend à la
+      -- navigation entre fenêtres/panes (tuios-nvim-navigator). Différé car l'ftplugin de DBUI pose
+      -- ses mappings sur le même événement FileType.
+      vim.api.nvim_create_autocmd('FileType', {
+        group = vim.api.nvim_create_augroup('config-dbui-nav', { clear = true }),
+        pattern = 'dbui',
+        callback = function(event)
+          vim.schedule(function()
+            for _, lhs in ipairs { '<C-j>', '<C-k>' } do
+              pcall(vim.keymap.del, 'n', lhs, { buffer = event.buf })
+            end
+          end)
+        end,
+      })
     end,
   },
 }

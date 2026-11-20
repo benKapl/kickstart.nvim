@@ -22,7 +22,10 @@ return {
         -- dans les fichiers ; dans oil, <C-q> fait le bloc visuel.
         ['<C-v>'] = { 'actions.select', opts = { vertical = true }, mode = 'n' },
         ['<C-s>'] = { 'actions.select', opts = { horizontal = true }, mode = 'n' },
-        ['<C-h>'] = false, -- rend <C-h> à la navigation entre fenêtres
+        -- Rend <C-h>/<C-l> à la navigation entre fenêtres/panes (tuios-nvim-navigator).
+        -- Rafraîchir : `:e`.
+        ['<C-h>'] = false,
+        ['<C-l>'] = false,
       },
       -- Fichiers cachés visibles (`g.` pour basculer). Oil ne masque pas les fichiers ignorés par git.
       view_options = { show_hidden = true },

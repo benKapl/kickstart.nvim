@@ -12,11 +12,8 @@ map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Diagnostics dans la l
 -- Sortie du mode terminal (:terminal) ; <C-\><C-n> fonctionne aussi
 map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Quitter le mode terminal' })
 
--- Navigation entre fenêtres nvim. Les panes tuios se pilotent à part (alt+flèches, ctrl+space h/j/k/l).
-map('n', '<C-h>', '<C-w><C-h>', { desc = 'Fenêtre de gauche' })
-map('n', '<C-l>', '<C-w><C-l>', { desc = 'Fenêtre de droite' })
-map('n', '<C-j>', '<C-w><C-j>', { desc = 'Fenêtre du dessous' })
-map('n', '<C-k>', '<C-w><C-k>', { desc = 'Fenêtre du dessus' })
+-- Navigation entre fenêtres nvim (<C-h/j/k/l>) : gérée par tuios-nvim-navigator (lua/plugins/tuios.lua),
+-- qui bascule sur le pane tuios adjacent au bord de l'écran.
 
 -- Navigation vers le fichier précédent
 map('n', '<leader>bb', '<cmd>e #<CR>', { desc = 'Fichier précédent (alternate)' })

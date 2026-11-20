@@ -58,7 +58,18 @@ return {
               vim.notify('Copié : ' .. table.concat(paths, ', '))
             end,
           },
-          win = { list = { keys = { ['Y'] = 'yank_relative' } } },
+          win = {
+            list = {
+              keys = {
+                ['Y'] = 'yank_relative',
+                -- La barre latérale rend <C-h/j/k> à la navigation entre fenêtres/panes
+                -- (tuios-nvim-navigator) ; j/k suffisent pour parcourir la liste.
+                ['<c-h>'] = false,
+                ['<c-j>'] = false,
+                ['<c-k>'] = false,
+              },
+            },
+          },
         },
       },
     },
