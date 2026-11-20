@@ -76,3 +76,9 @@ vim.o.scrolloff = 10
 
 -- Demande confirmation au lieu d'échouer (ex. :q avec des modifications non enregistrées)
 vim.o.confirm = true
+
+-- Diffs (natif + diffview) : hachures discrètes pour les lignes absentes,
+-- algorithme plus lisible et alignement des lignes modifiées (moins de « trous »)
+vim.opt.fillchars:append { diff = '╱' }
+vim.opt.diffopt:remove 'linematch:40' -- valeur par défaut, remplacée ci-dessous
+vim.opt.diffopt:append { 'algorithm:histogram', 'indent-heuristic', 'linematch:60' }

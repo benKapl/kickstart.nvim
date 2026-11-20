@@ -10,6 +10,13 @@ return {
         mirage = false,
         overrides = {
           LineNr = { fg = '#A0A6AE' }, -- numéros de ligne plus lisibles (défaut Ayu trop sombre)
+          -- Diffs épurés : fonds légers teintés, hachures des lignes absentes à peine visibles
+          DiffAdd = { bg = '#14261C' },
+          DiffDelete = { bg = '#1A1216', fg = '#3A2228' },
+          DiffChange = { bg = '#141E2A' },
+          DiffText = { bg = '#1F3A55' },
+          DiffviewDiffAddAsDelete = { bg = '#2A1418' }, -- côté « ancien » : lignes retirées en rouge
+          DiffviewDiffDelete = { bg = '#0D1017', fg = '#2A3038' }, -- hachures neutres
         },
       }
       vim.cmd.colorscheme 'ayu-dark'

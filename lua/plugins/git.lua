@@ -71,6 +71,8 @@ return {
       { '<leader>gH', '<cmd>DiffviewFileHistory<cr>', desc = 'Historique du dépôt (diffview)' },
       { '<leader>gm', '<cmd>DiffviewOpen main...HEAD<cr>', desc = 'Diff de la branche contre main' },
     },
-    opts = {},
+    opts = {
+      enhanced_diff_hl = true, -- ancien côté en rouge, nouveau en vert
+    },
   },
 }
